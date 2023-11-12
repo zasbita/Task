@@ -1,0 +1,94 @@
+/*
+ * PHP Login and Registration Script with PDO and OOP
+ * In this tutorial I'm going to explain  a login and registration script using PDO and OOP
+ * @author 	: Mohamad Zaki Mustafa
+ * @contact 	: mohdzaki04@gmail.com
+ * @fb	 	: https://www.facebook.com/zakimedia
+ * @tw	 	: https://twitter.com/mzmfizaki
+ */
+
+/* Space out content a bit */
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+.header,
+.mzm,
+.footer {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+}
+
+.text-login{
+    margin-left: 110px;
+}
+
+/* Custom page footer */
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+/* Custome Table thead color */
+.table-bordered.table-highlight {
+    border-top-color: #2c2c2c;    
+}
+
+.table thead tr:first-child {
+    background-color: #363636;    
+}
+.table thead tr:first-child th {
+    border: 1px solid #2c2c2c;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Customize container */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+}
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Supporting mzm content */
+.mzm {
+    margin: 40px 0;
+}
+.mzm p + h4 {
+    margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 1000px) {
+    /* Remove the padding we set earlier */
+    .header,
+    .mzm,
+    .footer {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+
+}
+
