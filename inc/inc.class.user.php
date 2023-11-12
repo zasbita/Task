@@ -1,4 +1,8 @@
 <?php
+namespace userLogin;
+
+use PDO;
+use PDOException;
 
 class User {
 

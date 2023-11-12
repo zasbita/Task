@@ -1,10 +1,18 @@
+<?php
+    include_once 'inc/inc.config.php';
+    use MyConfig\Config;
+    
+    $config = new Config();
+    $user = $config->user;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Header</title>
+        <title>Task to do</title>
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen"> 
         <!-- Custome -->
@@ -20,7 +28,7 @@
                     <!--Nav -->
                     <nav>
                         <ul class="nav nav-pills pull-right">
-                            <li class="active" role="presentation"><a href="user_index.php">Task to do</a></li>                        
+                            <li class="active" role="presentation"><a href="task_index.php">Task to do</a></li>                        
                             <li class="active" role="presentation"><a href="logout.php?logout">Logout</a></li>                        
                         </ul>
                     </nav>

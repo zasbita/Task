@@ -1,6 +1,12 @@
 <?php
 include_once 'inc/inc.config.php';
 include_once 'inc/inc.header.php';
+use MyConfig\Config;
+
+$config = new Config();
+$user = $config->user;
+$crud = $config->crud;
+$session = $_COOKIE['user'];
 
 if (!$user->is_loggedin()) {
     $user->redirect('index.php');
@@ -11,15 +17,10 @@ if (!$user->is_loggedin()) {
     <?php
     if (isset($_POST['btn-update'])) {
         $id = $_GET['edit_id'];
-        $fname = $_POST['fname'];
-        $femail = $_POST['femail'];
-        $fphone = $_POST['fphone'];
-
-        if ($crud->update($id, $fname, $femail, $fphone)) {
-            echo '<div class="alert alert-info">The user has been updated. <a href="index.php"><strong>HOME</strong></a>!</div>';
-        } else {
-            echo '<div class="alert alert-warning">The user could not be saved. Please, try again. <a href="index.php"><strong>HOME</strong></a>!</div>';
-        }
+        $name = $_POST['name'];
+        $image = $_FILES['image'];
+        $token = $_POST['token'];
+        $crud->update($id, $name, $image, $token);
     }
 
     if (isset($_GET['edit_id']) && is_numeric($_GET['edit_id'])) {
@@ -28,23 +29,18 @@ if (!$user->is_loggedin()) {
     }
     ?>
     <h3 class="text-center"><?php echo 'Update Record' ?></h3>
-    <form method='post' class="form-horizontal">
+    <form method='post' class="form-horizontal" enctype="multipart/form-data">
+        <input type="hidden" name="token" value="<?php echo $session?>">
         <div class="form-group form-group-lg">
             <label for="inputName" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="fname" value="<?php echo $name; ?>" required> 
+                <input type="text" class="form-control" name="name" value="<?php echo $name; ?>" required> 
             </div>
-        </div>    
+        </div>  
         <div class="form-group form-group-lg">
-            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+            <label for="inputPhone" class="col-sm-2 control-label">Image</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control"  name="femail" value="<?php echo $email; ?>" required>
-            </div>
-        </div>
-        <div class="form-group form-group-lg">
-            <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
-            <div class="col-sm-8">
-                <input type="tel" class="form-control" name="fphone" value="<?php echo $phone; ?>" required>
+                <input type="file" class="form-control" name="image" required accept="image/*">
             </div>
         </div>    
         <div class="form-group">

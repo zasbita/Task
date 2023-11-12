@@ -1,24 +1,27 @@
 <?php
 include_once 'inc/inc.config.php';
 include_once 'inc/inc.header.php';
+use MyConfig\Config;
+
+$config = new Config();
+$user = $config->user;
+$crud = $config->crud;
+$session = $_COOKIE['user'];
 
 if (!$user->is_loggedin()) {
     $user->redirect('index.php');
 }
+
 ?>
 
 <div class="row mzm">
     <?php
     if (isset($_POST['btn-save'])) {
-        $fname = $_POST['fname'];
-        $femail = $_POST['femail'];
-        $fphone = $_POST['fphone'];
-
-        if ($crud->create($fname, $femail, $fphone)) {
-            header("Location: add.php?inserted");
-        } else {
-            header("Location: add.php?failure");
-        }
+        $name = $_POST['name'];
+        $image = $_FILES['image'];
+        $date = date('Y-m-d');
+        $token = $_POST['token'];
+        $crud->create($name, $image, $date, $token);
     }
 
     if (isset($_GET['inserted']) && $_GET['inserted'] = "inserted") {
@@ -28,29 +31,18 @@ if (!$user->is_loggedin()) {
     } 
     ?>
     <h3 class="text-center"><?php echo 'New Record' ?></h3>
-    <form method='post' class="form-horizontal">
+    <form method='post' class="form-horizontal" enctype="multipart/form-data">
+        <input type="hidden" name="token" value="<?php echo $session?>">
         <div class="form-group form-group-lg">
             <label for="inputName" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="fname" placeholder="Full Name" required> 
-            </div>
-        </div>    
-        <div class="form-group form-group-lg">
-            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-8">
-                <input type="email" class="form-control"  name="femail" placeholder="Email" required>
+                <input type="text" class="form-control" name="name" placeholder="Full Name" required> 
             </div>
         </div>
         <div class="form-group form-group-lg">
-            <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+            <label for="inputPhone" class="col-sm-2 control-label">Image</label>
             <div class="col-sm-8">
-                <input type="password" class="form-control"  name="fpwd" placeholder="password" required>
-            </div>
-        </div>
-        <div class="form-group form-group-lg">
-            <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
-            <div class="col-sm-8">
-                <input type="tel" class="form-control" name="fphone" placeholder="Phone Number" required>
+                <input type="file" class="form-control" name="image" required accept="image/*">
             </div>
         </div>    
         <div class="form-group">

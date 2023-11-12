@@ -1,20 +1,31 @@
 <?php
+namespace MyConfig;
 
-$dbHost = "localhost";
-$dbUser = "root";
-$dbPass = "";
-$dbName = "db_task";
-
-try {
-    // Connections are established by creating instances of the PDO base class.    
-    // http://php.net/manual/en/pdo.connections.php
-    $dbCon = new PDO("mysql:host={$dbHost};dbname={$dbName}", $dbUser, $dbPass);
-    $dbCon->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo $e->getMessage();
-}
-
-include_once 'inc.class.crud.php';
-$crud = new Crud($dbCon);
 include_once 'inc.class.user.php';
-$user = new User($dbCon);
+include_once 'inc.class.crud.php';
+use userLogin\User;
+use userLogin\Crud;
+use PDO;
+use PDOException;
+
+class Config {
+    private $dbHost = "localhost";
+    private $dbUser = "root";
+    private $dbPass = "";
+    private $dbName = "db_task";
+    public $con;
+    public $crud;
+    public $user;
+
+    public function __construct()
+    {
+        try {
+            $this->con = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName}", $this->dbUser, $this->dbPass);
+            $this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->crud = new Crud($this->con);
+            $this->user = new User($this->con);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+}

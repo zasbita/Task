@@ -1,6 +1,11 @@
 <?php
 include_once 'inc/inc.config.php';
 include_once 'inc/inc.header.php';
+use MyConfig\Config;
+
+$config = new Config();
+$user = $config->user;
+$crud = $config->crud;
 
 if (!$user->is_loggedin()) {
     $user->redirect('index.php');
@@ -13,11 +18,6 @@ if (!$user->is_loggedin()) {
     if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
         $id = $_GET['delete_id'];
         $crud->delete($id);
-        if ($crud->delete($id)) {
-            header("Location: delete.php?deleted");
-        } else {
-            header("Location: delete.php?failure");
-        }
     }
     if (isset($_GET['deleted']) && $_GET['deleted'] = "deleted") {
         echo '<div class="alert alert-info">The user has been deleted. <a href="index.php"><strong>HOME</strong></a>!</div>';
